@@ -3,7 +3,7 @@
 /*
   Plugin Name: TagBag
   Plugin URI: http://www.explodybits.com/
-  Description: Stop thinking about what tags you should add, forgetting to add certain tags, and typing in tags by hand.  Let Tagbag do the work for you. Just look at the list of suggestions, click the ones you want, and move on.
+  Description: Stop thinking about what tags you should add, forgetting to add certain tags, and typing in tags by hand.  Let <strong>TagBag</strong> do the work for you. Just look at the list of suggestions, click the ones you want, and move on.
   Author: Birch Dunford (birch@oneuplogic.com)
   Version: 0.1
   Author URI: http://www.explodybits.com/
@@ -24,13 +24,11 @@
  */
 
 
-//for Artical: Offers up Tag suggestions based on the current post content.  Tagbag first presents suggested tags based on locating existing tags with in the current post.  Tagbag then presents suggestions for new tags based on word repetition, excluding common stop words.  Both stop words and the required repetition can be modified through the Tagbag settings page.  All suggested tags are ordered Tag count and the Tag Alphabetically.   Tagbag will work with custom post types.  Be sure that Tags are included in the supports of the Custom post type and that you have check the custom post type in the Tagbag settings.
-//TODO:  Some how stop splitting sugested new on space so that Prases can be displayed as well so like for "hound dog" user would see "hound", "dog" and "hound dog" 
-//TODO:  Change the display to make the ranking of the tag more appearent.  Not the Font size that is played out. 
 class Xb_TagBag {
 
     var $plugin_options = 'tagbag_options';
     var $option_post_types = 'post_types';
+    var $option_tag_coloring = 'tag_coloring';
     var $option_stop_words = 'stop_words';
     var $option_word_count = 'word_count';
     var $word_boundry = '[^a-z-A-Z\d\-\'\_]';
@@ -58,6 +56,7 @@ class Xb_TagBag {
             $this->option_post_types => array('post'),
             $this->option_stop_words => $this->settings_get_stop_words(),
             $this->option_word_count => 3,
+            $this->option_tag_coloring => 'hot',
         );
         add_option($this->plugin_options, $options);
     }
@@ -76,7 +75,10 @@ class Xb_TagBag {
 
         add_settings_section('tagbag_settings_post_types', 'Post Types', array($this, 'settings_post_types_display'), 'tagbag');
         add_settings_field($this->option_post_types, 'Available Post Types', array($this, 'settings_post_types_input'), 'tagbag', 'tagbag_settings_post_types');
-
+        
+        add_settings_section('tagbag_settings_tag_coloring', 'Tag Coloring', array($this, 'settings_tag_coloring_display'), 'tagbag');
+        add_settings_field($this->tag_coloring, 'Pick Tag Coloring', array($this, 'settings_tag_coloring_input'), 'tagbag', 'tagbag_settings_tag_coloring'); 
+        
         add_settings_section('tagbag_settings_new_tags', 'New Tag Suggestion', array($this, 'settings_new_tags_display'), 'tagbag');
         add_settings_field($this->option_word_count, 'Word Count', array($this, 'settings_word_count_input'), 'tagbag', 'tagbag_settings_new_tags');
         add_settings_field($this->option_stop_words, 'Stop Words', array($this, 'settings_stop_words_input'), 'tagbag', 'tagbag_settings_new_tags');
@@ -90,9 +92,14 @@ class Xb_TagBag {
 
         return $input;
     }
-
+    
+    
     function settings_post_types_display() {
-        echo "<p>Select the Post types that you would like to use <b>TagBag</b> with. Post types need to have at least <b>one post published</b>, before they will be available for selection</p>";
+        echo "<p>Select the Post types that you would like to use <b>TagBag</b> with. Post types need to have at least <b>one post published</b>, before they will be available for selection.  Custom post types require the post_tag to be included in the taxonomies</p>";
+    }
+    
+    function setting_tag_coloring_display() { 
+        echo "<p>Select the coloring of the suggested tags</p>";
     }
 
     function settings_new_tags_display() {
@@ -111,6 +118,14 @@ class Xb_TagBag {
             echo "<div class=''>" . implode('<br />', $html) . "</div>";
         }
     }
+    
+    function settings_tag_coloring_input() {
+        $tag_coloring = $this->settings_get_plugin_options($this->option_tag_coloring);
+        echo "<input type='radio' id='$this->option_tag_coloring' name='tagbag_options[$this->option_tag_coloring]' " . checked(($tag_coloring == 'standard'), true, false) . "  value='standard' /> Standard Link Color";
+        echo "<br/>";
+        echo "<input type='radio' id='$this->option_tag_coloring' name='tagbag_options[$this->option_tag_coloring]' " . checked(($tag_coloring == 'hot'), true, false) . "  value='hot' /> Red Hot Coloring";
+    }
+    
 
     function settings_word_count_input() {
         $word_count = $this->settings_get_plugin_options($this->option_word_count);
@@ -233,10 +248,11 @@ class Xb_TagBag {
     }
 
     function meta_box_add($post_type) {
-        add_meta_box('tagbag', 'Tag Bag', array($this, 'meta_box_display'), $post_type, 'side', 'core', null);
+        add_meta_box('tagbag', 'TagBag', array($this, 'meta_box_display'), $post_type, 'side', 'core', null);
     }
 
     function meta_box_display() {
+        
         $tag_data = $this->tags_get_display();
         include_once plugin_dir_path(__FILE__) . 'tpl/tagbag_metabox.php';
     }
@@ -281,8 +297,10 @@ class Xb_TagBag {
 
     function tags_format_for_display($tags) {
         $html = array();
+        $tag_coloring = $this->settings_get_plugin_options($this->option_tag_coloring);
+        
         foreach ($tags as $tag) {
-            $html[] = sprintf('<a  title="add %s (found %s)" class="%s" href="#">%s</a>', trim($tag->tag), $tag->count, $this->tags_get_css_class($tag->count), trim($tag->tag));
+            $html[] = sprintf('<a  title="add %s (found %s)" class="%s" href="#">%s</a>', trim($tag->tag), $tag->count, $this->tags_get_css_class($tag->count,$tag_coloring), trim($tag->tag));
         }
 
         if (count($html) == 0) {
@@ -292,21 +310,22 @@ class Xb_TagBag {
         return implode(" ", $html);
     }
     
-    function tags_get_css_class($count) {
+    function tags_get_css_class($count,$tag_coloring = 'standard') {
+        
         
         if ($count >= 6) {
-            return 'tb-hot';
+            return sprintf('tb-hot-%s',$tag_coloring);
         }
         
         if ($count >= 4) {
-            return 'tb-medium';
+            return sprintf('tb-medium-%s',$tag_coloring);
         }
         
         if ($count >= 2) {
-            return 'tb-mild';
+            return sprintf('tb-mild-%s',$tag_coloring);
         }
         
-        return 'tb-mellow';
+        return sprintf('tb-mellow-%s',$tag_coloring);
     }
 
     function tags_get_suggested_existing($post_tags, $post_content) {

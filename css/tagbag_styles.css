@@ -1,23 +1,46 @@
 
-a.tb-hot {
+a.tb-hot-hot {
     color: #8B0000;
     font-size: 175%;
 }
 
-a.tb-medium {
+a.tb-medium-hot {
     color: #FF0000;
     font-size: 150%;
 }
 
-a.tb-mild {
+a.tb-mild-hot {
     color: #FF4500;
     font-size: 125%;
 }
 
-a.tb-mellow {
+a.tb-mellow-hot {
     color: #FF8C00;
     font-size: 100%;    
 }
+
+a.tb-hot-standard {
+    opacity: 1.0;
+    font-size: 175%;
+}
+
+a.tb-medium-standard {
+    opacity: 0.8;
+    font-size: 150%;
+}
+
+a.tb-mild-standard {
+    opacity: 0.6;
+    font-size: 125%;
+}
+
+a.tb-mellow-standard {
+    opacity: 0.4;
+    font-size: 100%;    
+}
+
+
+
 
 #tagbag a:hover {
     color: #000000
