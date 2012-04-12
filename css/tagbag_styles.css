@@ -1,0 +1,24 @@
+
+a.tb-hot {
+    color: #8B0000;
+    font-size: 175%;
+}
+
+a.tb-medium {
+    color: #FF0000;
+    font-size: 150%;
+}
+
+a.tb-mild {
+    color: #FF4500;
+    font-size: 125%;
+}
+
+a.tb-mellow {
+    color: #FF8C00;
+    font-size: 100%;    
+}
+
+#tagbag a:hover {
+    color: #000000
+}
