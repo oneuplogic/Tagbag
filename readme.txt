@@ -41,10 +41,9 @@ Yes
 
 Yes we will and we welcome your suggestions
 
-= Why is Tagbag not working with My custom post type =
+= Why is Tagbag not working with my custom post type =
 
-Be sure that you have selected your custom post type in the tagbag settings page.  If your post type is not displayed in the settings page.  Make sure there is at least one post added under your custom post type.  
-Also be sure that you have added the post_tag taxonomy to your custom post type. Tagbag will not work when the standard Wordpress Tag meta box is not displayed. 
+Be sure that you have selected your custom post type in the tagbag settings page.  If your post type is not displayed in the settings page, make sure there is at least one post added under your custom post type.  Also be sure that you have added the post_tag taxonomy to your custom post type. Tagbag will not work when the standard Wordpress Tag meta box is not displayed. 
 
 = What are the Existing Tags displayed in Tagbag =
 
