@@ -55,7 +55,7 @@ class Xb_TagBag {
         $options = array(
             $this->option_post_types => array('post'),
             $this->option_stop_words => $this->settings_get_stop_words(),
-            $this->option_word_count => 3,
+            $this->option_word_count => 2,
             $this->option_tag_coloring => 'standard',
         );
         add_option($this->plugin_options, $options);

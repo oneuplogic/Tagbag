@@ -41,6 +41,16 @@ Yes
 
 Yes we will and we welcome your suggestions
 
+= Why is Tagnag not working with My custom post type =
+
+Be sure that you have selected your custom post type in the tagbag settings page.  If your post type is not displayed in the settings page.  Make sure there is at least one post added under your custom post type.  
+Also be sure that you have added the post_tag taxonomy to your custom post type. Tagbag will not work when the standard Wordpress Tag meta box is not displayed. 
+
+= What are the Existing Tags displayed in Tagbag =
+
+Existing Tags are Tags that were found in the content of the current post that were used as tags in other posts throughout your Wordpress Site.    
+
+
 == Changelog ==
 
 = 1.0 =
