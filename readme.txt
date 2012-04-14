@@ -1,6 +1,6 @@
 === Tagbag ===
 Contributors: explodybits
-Tags: tags, tagging, post tags, suggested tags,
+Tags: tag, tags, tagging, post tag, post tags, tag hints, tag suggestions, taxonomies 
 Requires at least: 3.2.1
 Tested up to: 3.3.1
 Stable tag: trunk
@@ -9,7 +9,7 @@ Tagbag, takes the thought out of selecting tags for your post
 
 == Description ==
 
-Stop thinking about what tags you should add, forgetting to add certain tags, and typing in tags by hand.  Let Tagbag do the work for you. Just look at the list of suggestions, click the ones you want, and move on.
+Tags, tagging, and post tags made easy. Stop thinking about what tags you should add, forgetting to add certain tags, and typing in tags by hand.  Let Tagbag do the work for you. Just look at the list of suggestions, click the ones you want, and move on.
 More on Tagbag: 
 [explodybits (xb)](http://www.explodybits.com/ "explodybits (xb)")
 
@@ -41,7 +41,7 @@ Yes
 
 Yes we will and we welcome your suggestions
 
-= Why is Tagnag not working with My custom post type =
+= Why is Tagbag not working with My custom post type =
 
 Be sure that you have selected your custom post type in the tagbag settings page.  If your post type is not displayed in the settings page.  Make sure there is at least one post added under your custom post type.  
 Also be sure that you have added the post_tag taxonomy to your custom post type. Tagbag will not work when the standard Wordpress Tag meta box is not displayed. 
