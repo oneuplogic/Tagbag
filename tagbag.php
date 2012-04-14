@@ -56,7 +56,7 @@ class Xb_TagBag {
             $this->option_post_types => array('post'),
             $this->option_stop_words => $this->settings_get_stop_words(),
             $this->option_word_count => 3,
-            $this->option_tag_coloring => 'hot',
+            $this->option_tag_coloring => 'standard',
         );
         add_option($this->plugin_options, $options);
     }
@@ -123,7 +123,7 @@ class Xb_TagBag {
         $tag_coloring = $this->settings_get_plugin_options($this->option_tag_coloring);
         echo "<input type='radio' id='$this->option_tag_coloring' name='tagbag_options[$this->option_tag_coloring]' " . checked(($tag_coloring == 'standard'), true, false) . "  value='standard' /> Standard Link Color";
         echo "<br/>";
-        echo "<input type='radio' id='$this->option_tag_coloring' name='tagbag_options[$this->option_tag_coloring]' " . checked(($tag_coloring == 'hot'), true, false) . "  value='hot' /> Red Hot Coloring";
+        echo "<input type='radio' id='$this->option_tag_coloring' name='tagbag_options[$this->option_tag_coloring]' " . checked(($tag_coloring == 'hot'), true, false) . "  value='hot' /> Red Hot Color";
     }
     
 
@@ -313,15 +313,15 @@ class Xb_TagBag {
     function tags_get_css_class($count,$tag_coloring = 'standard') {
         
         
-        if ($count >= 6) {
+        if ($count > 5) {
             return sprintf('tb-hot-%s',$tag_coloring);
         }
         
-        if ($count >= 4) {
+        if ($count > 3) {
             return sprintf('tb-medium-%s',$tag_coloring);
         }
         
-        if ($count >= 2) {
+        if ($count > 1) {
             return sprintf('tb-mild-%s',$tag_coloring);
         }
         
