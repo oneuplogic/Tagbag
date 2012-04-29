@@ -11,7 +11,7 @@ Tagbag, takes the thought out of selecting tags for your post
 
 Tags, tagging, and post tags made easy. Stop thinking about what tags you should add, forgetting to add certain tags, and typing in tags by hand.  Let Tagbag do the work for you. Just look at the list of suggestions, click the ones you want, and move on.
 More on Tagbag: 
-[explodybits (xb)](http://www.explodybits.com/ "explodybits (xb)")
+[explodybits (xb)](http://www.explodybits.com/2012/04/tagbag-wordpress-plugin/ "explodybits (xb)")
 
 
 == Installation ==
